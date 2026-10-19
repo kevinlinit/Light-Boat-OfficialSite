@@ -1,0 +1,132 @@
+/* Light Boat: indigo ink, river mist, layered ridges, one brass sail. */
+:root{
+  --mist:#E4EBEC; --mist-2:#F1F5F5; --ink:#17304A; --ink-2:#4A6175; --line:#C3D0D5;
+  --ridge-1:#BCCBD2; --ridge-2:#91A9B7; --ridge-3:#5E7C93; --water:#D3DFE3;
+  --brass:#C08A2B; --on-brass:#1E1608;
+  /* the app's category colours, for the phone preview */
+  --do:#D99A17; --move:#2E8C83; --fuel:#5E8D38; --hard:#D2372B;
+  --display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",Georgia,serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
+  --gutter:clamp(16px,5vw,64px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --mist:#0E1A25; --mist-2:#142331; --ink:#DCE6EA; --ink-2:#9BB0BD; --line:#2A3D4D;
+    --ridge-1:#1B2C3B; --ridge-2:#223849; --ridge-3:#2C475C; --water:#18293A;
+    --brass:#D9A443; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --mist:#0E1A25; --mist-2:#142331; --ink:#DCE6EA; --ink-2:#9BB0BD; --line:#2A3D4D;
+  --ridge-1:#1B2C3B; --ridge-2:#223849; --ridge-3:#2C475C; --water:#18293A;
+  --brass:#D9A443; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,4vw,42px)}
+h3{font-size:21px;font-weight:600}
+p{margin:0}
+
+/* top bar */
+.bar{position:absolute;inset:0 0 auto;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px var(--gutter);flex-wrap:wrap}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:21px}
+.mark svg{width:38px;height:24px;color:var(--ink)}
+.mark .sail,.boat .sail{fill:var(--brass)}
+.bar nav{display:flex;gap:4px 18px;flex-wrap:wrap;font-size:15px}
+.bar nav a{text-decoration:none;color:var(--ink-2)}
+.bar nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+
+/* buttons */
+.btn{display:inline-block;padding:11px 22px;border-radius:999px;border:1.5px solid var(--ink);text-decoration:none;font-weight:700;font-size:16px;line-height:1.3}
+.btn:hover{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.btn.primary{background:var(--ink);color:var(--mist)}
+.btn.primary:hover{background:color-mix(in srgb,var(--ink) 88%,var(--brass))}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+
+/* hero: ridges, river, a boat crossing once */
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:110px var(--gutter) clamp(240px,34vw,500px);overflow:hidden;isolation:isolate}
+.ridges{position:absolute;inset:auto 0 0 0;width:100%;height:clamp(230px,36vw,520px);z-index:-1}
+.r1{fill:var(--ridge-1)} .r2{fill:var(--ridge-2)} .r3{fill:var(--ridge-3)} .river{fill:var(--water)}
+.hull{fill:var(--ink)}
+.wake{fill:none;stroke:var(--mist-2);stroke-width:2.5;stroke-linecap:round;opacity:.9}
+.boat{transform:translate(1010px,492px);animation:cross 9s cubic-bezier(.2,.6,.3,1) both}
+@keyframes cross{from{transform:translate(-90px,496px)}to{transform:translate(1010px,492px)}}
+@media (prefers-reduced-motion:reduce){.boat{animation:none}}
+.hero-text{max-width:34rem}
+.hero h1{font-size:clamp(42px,7vw,84px);letter-spacing:-.01em}
+.lede{margin-top:20px;font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);max-width:33rem}
+.poem{margin:0;align-self:start;display:flex;gap:14px;flex-direction:row-reverse;margin-top:8px}
+/* One character per line, stacked, so it reads top to bottom on every browser and font. */
+.poem blockquote{margin:0;display:flex;flex-direction:column;align-items:center;font-family:var(--display);font-weight:800;font-size:clamp(34px,4.4vw,56px);line-height:1.12}
+.poem figcaption{writing-mode:vertical-rl;font-size:13px;color:var(--ink-2);max-height:24em;line-height:1.5}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:140px}
+  .poem{order:-1;flex-direction:row;align-items:center}
+  .poem blockquote{flex-direction:row;font-size:30px;gap:.12em}
+  .poem figcaption{writing-mode:horizontal-tb;max-height:none}
+  .poem{flex-direction:column;align-items:flex-start;gap:4px}
+}
+
+/* sections */
+main>section:not(.hero){padding:clamp(64px,9vw,120px) var(--gutter)}
+.how{background:var(--mist-2)}
+.how h2,.routes-head,.prices>h2,.prices>p,.start>*{max-width:40rem}
+
+/* how it works: four steps on a river line, like the app's timeline rail */
+.river-steps{list-style:none;counter-reset:step;margin:44px 0 0;padding:0;max-width:46rem;position:relative}
+.river-steps::before{content:"";position:absolute;left:19px;top:12px;bottom:12px;width:3px;border-radius:2px;background:linear-gradient(var(--ridge-2),var(--brass))}
+.river-steps li{counter-increment:step;position:relative;padding:0 0 38px 64px}
+.river-steps li:last-child{padding-bottom:0}
+.river-steps li::before{content:counter(step);position:absolute;left:0;top:0;width:41px;height:41px;border-radius:50%;display:grid;place-items:center;background:var(--mist-2);border:2.5px solid var(--ink);font-family:var(--display);font-weight:800;font-size:18px}
+.river-steps h3{padding-top:5px}
+.river-steps p{margin-top:6px;color:var(--ink-2);max-width:38rem}
+
+/* routes */
+.routes-head p{margin-top:12px;color:var(--ink-2)}
+.route-list{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:0 48px}
+.route-list li{padding:22px 0;border-top:1px solid var(--line)}
+.route-list .where{font-size:14px;color:var(--ink-2);margin:4px 0 8px}
+
+/* the app */
+.app{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,360px);gap:48px;align-items:center;background:var(--ink);color:var(--mist)}
+.app h2{color:var(--mist)}
+.app-text p{margin-top:16px;max-width:34rem;color:color-mix(in srgb,var(--mist) 80%,var(--ink))}
+.app .btn{border-color:var(--mist);margin-top:8px}
+.app .btn:hover{background:color-mix(in srgb,var(--mist) 12%,transparent)}
+@media (max-width:760px){.app{grid-template-columns:1fr}}
+.phone{background:#F4F7F4;color:#1B2733;border-radius:34px;padding:26px 18px 22px;box-shadow:0 0 0 8px #0A1622,0 24px 48px rgb(0 0 0 / .35);font-size:14px;max-width:340px;justify-self:center;width:100%}
+.ph-day{font-family:var(--display);font-weight:800;font-size:17px;border-bottom:2px solid #1B2733;padding-bottom:6px}
+.ph-now{margin:12px 0;padding:12px;border-radius:12px;background:#fff;border:1px solid #D9E1DC;display:grid;gap:2px}
+.ph-now span{font-size:12px;color:#4F5D69}
+.ph-now b{font-family:var(--display);font-size:17px;line-height:1.3}
+.ph-now i{display:block;height:6px;border-radius:3px;margin-top:6px;background:linear-gradient(90deg,var(--do) var(--p),#D9E1DC var(--p))}
+.ph-now small{color:#4F5D69;font-size:12px}
+.ph-rows{list-style:none;margin:0;padding:0}
+.ph-rows li{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:7px 0 7px 10px;border-left:4px solid var(--c,transparent);margin-left:48px;position:relative}
+.ph-rows time{position:absolute;left:-48px;font-weight:700;font-variant-numeric:tabular-nums;font-size:13px}
+.ph-rows li b{grid-column:1/3;font-weight:700;font-size:14px;line-height:1.3}
+.ph-rows small{font-size:11px;color:#3F8A4E;border:1px solid #3F8A4E;border-radius:4px;padding:0 4px}
+.ph-rows .cur{background:#FFF7DD;border-radius:0 8px 8px 0}
+.ph-rows .dl{border-left:4px solid transparent;color:var(--hard)}
+.ph-rows .dl time{color:var(--hard)}
+.ph-rows .dl::before{content:"";position:absolute;left:-8px;width:10px;height:10px;background:var(--hard);transform:rotate(45deg)}
+
+/* prices */
+.prices>p{margin-top:12px;color:var(--ink-2)}
+.price-list{display:flex;flex-wrap:wrap;gap:12px 56px;margin:36px 0 0}
+.price-list div{display:grid}
+.price-list dt{font-size:15px;color:var(--ink-2)}
+.price-list dd{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(30px,4vw,44px);font-variant-numeric:lining-nums}
+
+/* last call */
+.start{background:var(--mist-2);border-top:1px solid var(--line)}
+.start p{margin-top:12px;color:var(--ink-2)}
+.start .btn{margin-top:16px}
+
+.foot{padding:28px var(--gutter) 40px;display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;font-size:14px;color:var(--ink-2);border-top:1px solid var(--line)}
+.foot a{margin-left:16px}
+.foot a:first-child{margin-left:0}
