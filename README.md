@@ -43,9 +43,13 @@ npm test
 
 The `pages` workflow tests the site and publishes it to GitHub Pages on every push to `main`.
 
-1. **Settings → Pages → Source: GitHub Actions.** (GitHub Pages for a private repository needs a paid plan; otherwise make the repository public or host the folder anywhere static.)
+1. **Settings → Pages → Source: GitHub Actions**, then re-run the latest `pages` workflow. Until Pages is on, the deploy job fails with "Ensure GitHub Pages has been enabled". GitHub Pages for a **private** repository needs a paid plan (Pro, Team or Enterprise); on the free plan the Pages settings only offer an upgrade. Then either make the repository public (nothing secret lives here: access is enforced by the server) or use another static host.
 2. Optional, under **Settings → Secrets and variables → Actions → Variables**: `SERVER_URL` (the backend server, for sign-in) and `API_URL` (published missions, if not the default).
 3. With sign-in on, add the site's address to the Google web client's **Authorized JavaScript origins**.
+
+### Another static host
+
+Cloudflare Pages, Netlify and Vercel all serve private repositories for free. Connect the repository, leave the build command empty and the output folder as the repository root, and put the backend's address in `app/js/config.js` (commit it, since those hosts don't run the workflow).
 
 ## The shared core
 
